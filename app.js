@@ -265,12 +265,14 @@ io.on('connection', function(socket){
       var target = data.target ;
       var source = data.source ;
       Online.findOne({username: target}, function(err, user){
-        for(var i=0;i<user.socket_ids.length;i++){
-          if(user.socket_ids[i].target === source){
-            socket.to(user.socket_ids[i].socket_id).emit('typing echo', data);
-            console.log('sent 5465') ;
-          }else{
-            console.log(data) ;
+        if(user){
+          for(var i=0;i<user.socket_ids.length;i++){
+            if(user.socket_ids[i].target === source){
+              socket.to(user.socket_ids[i].socket_id).emit('typing echo', data);
+              console.log('sent 5465') ;
+            }else{
+              console.log(data) ;
+            }
           }
         }
       })

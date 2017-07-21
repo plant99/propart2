@@ -144,7 +144,14 @@ function loadInvites(invites, user){
 						user:user.username,
 						id:parent.getAttribute('data')
 					}, function(response){
-						console.log(response) ;
+						if(response.success){
+							parent.innerHTML = '<p class="alert">The invite was removed from your feed!</p>'
+							setTimeout(function(){
+								parent.parentNode.removeChild(parent)
+							},5000) ;
+						}else{
+
+						}
 					})
 				}
 				var clear_float_for_remove = document.createElement('div') ;
@@ -294,7 +301,11 @@ function loadCreatedInvites(invites, user){
 			inviteCreated.setAttribute('invite_id',invites[i]._id)
 			var title = document.createElement('h2') ;
 			title.innerHTML = invites[i].title ;
+			var remove_option = document.createElement('span') ;
+			remove_option.innerHTML = 'REMOVE INVITE' ;
+			remove_option.setAttribute('class','remove') ;
 			inviteCreated.appendChild(title)
+			inviteCreated.appendChild(remove_option) ;
 			var applicants = invites[i].applicants ;
 			console.log(applicants)
 			var applicant_counter_for_single_invite = 0 ;
@@ -375,7 +386,27 @@ function loadCreatedInvites(invites, user){
 			if(i!= invites.length-1){
 				inviteCreated.innerHTML+= '<hr>'
 			}
-			invites_created.appendChild(inviteCreated)
+			invites_created.appendChild(inviteCreated);
+			if(i === invites.length-1){
+				// add event handler for remove invite
+
+				var remove_options = document.querySelectorAll('.remove') ;
+				if(remove_options.length){
+					for(var i=0;i< remove_options.length;i++){
+						var remove_option = remove_options[i] ;
+						remove_option.onclick = function(e){
+							var confirm_delete = window.confirm('Are you sure you want to delete the invite "'+e.target.previousSibling.innerHTML+'" ?') ;
+							if(confirm_delete){
+								$.post('/remove_data/invite',{id: e.target.parentNode.getAttribute('invite_id')}, function(response){
+									console.log(response) ;
+								})
+							}else{
+								// if not
+							}
+						}
+					}
+				}
+			}
 		}
 	}else{
 		//load headers
