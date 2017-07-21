@@ -1,0 +1,48 @@
+<style>
+  .home{
+    position: fixed ;
+    background-color: rgba(128,128,128,0.6);
+    left:100px;
+    bottom: 50px ;
+    padding: 15px ;
+    border-radius: 50%;
+  }
+  .logout{
+    position: fixed ;
+    background-color: rgba(128,128,128,0.6);
+    right: 100px ;
+    bottom: 50px ;
+    padding: 15px ;
+    border-radius: 50%;
+  }
+  .home:hover,.logout:hover{
+    cursor: pointer;
+  }
+  .home img{
+    width: 40px ;
+    height: 40px ;
+  }
+  .logout img{
+    width: 40px ;
+    height: 40px ;
+  }
+</style>
+<script type="text/javascript" src="/javascripts/jscookie.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+<a href="/dashboard">
+  <div class="home">
+    <img src="/images/home.png"/>
+  </div>
+</a>
+
+<div class="logout" id="logout">
+  <img src="/images/logout.png" />
+</div>
+
+<script>
+  $('#logout').click(function(e){
+    Cookies.remove('token') ;
+    Cookies.remove('username') ;
+    location.href = '/login' ;
+  })
+</script>

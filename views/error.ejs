@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Error</title>
+  	<link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Fondamento" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		body{
+			font-family: 'Shadows Into Light', Monospace;
+			margin:30px auto;
+			text-align: center ;
+			background-image: url('/images/bg2.jpg');
+			background-size: 100% 800px ;
+			background-attachment: fixed;
+		}
+		 h1{
+			font-size: 26px ;
+		}
+		p{
+			font-size: 20px;
+		}
+		.main_image{
+			margin-top:30px ;
+			border-radius: 8px ;
+		}
+	</style>
+</head>
+<body>
+	<h2 style="color: cyan;">Sorry, we couln't load this for you</h2>
+	<p><%= message %></p>
+	<img class="main_image" src="/images/error.jpg">
+	<% include footer.ejs %>
+	<script type="text/javascript">
+	</script>
+</body>
+</html>

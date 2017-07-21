@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+  	<link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Fondamento" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		*{
+			color: cyan ;
+		}
+		body{
+			font-family: 'Shadows Into Light', Monospace;
+			margin:30px auto;
+			text-align: center ;
+			background-image: url('/images/bg2.jpg');
+			background-size: 100% 800px ;
+			background-attachment: fixed;
+		}
+		form{
+			margin-top: 30px ;
+			padding: 30px ;
+		}
+		input, select{
+			margin:20px;
+		}
+		.jumbotron h1{
+			font-size: 26px ;
+		}
+
+		.notification{
+			border-radius: 10px ;
+			padding:20px ;
+			background-color: yellow ;
+			color: red ;
+			font-size: 20px ;
+		}
+		p.notInTheForm{
+			color: red ;
+		}
+		.btn{
+			text-decoration: none ;
+		}
+		.g-recaptcha{
+			margin-left:37% ;
+		}
+		p{
+			font-size: 18px ;
+		}
+		label{
+			font-size: 18px;
+		}
+		select, option{
+			color: purple;
+		}
+	</style>
+
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</head>
+<body>
+	<%if(message){%>
+
+	<div class="notificationBox"><p class="notification"><%=message%></p></div>
+	<%}%>
+	<h1 style="color: cyan; font-size: 30px;">SignUp to use ProPart</h1>
+	<form enctype="multipart/form-data" method="post" action="/signup" onsubmit="return validateForm();">
+		<p>Full Name:<input style="color: violet;"  required type="text" name="name" placeholder="Full Name"></p>
+
+		<label>Username:<input type="text" style="color: violet; font-size: 15px ;" required="true"  name="username" placeholder="username" class="username"> <span class="uNameVerifiedContainer"><img class="uNameVerified" src=""></span></label>
+
+		<br>
+
+		<label>Password:<input placeholder="password" required="true" type="password" style="color: violet; font-size: 15px ;"  name="password"></label>
+		<br>
+
+		<label>Roll NO: <input type="text" name="rollno" style="color: violet ;" required></label>
+		<br>
+		<label>
+		Course:
+			<select name="course">
+				<option value="btech">B.Tech</option>
+				<option value="mtech">M.Tech</option>
+				<option value="phd">Ph.D</option>
+			</select>
+		</label>
+
+		<br>
+
+		<label>
+		Branch:
+			<select name="branch">
+				<option value="civil">Civil Engg</option>
+				<option value="chemical">Chemical Engg</option>
+				<option value="mech">Mechanical Engg</option>
+				<option value="prod">Production Engg</option>
+				<option value="prod">Computer Sc and Engg</option>
+				<option value="ece">Electronics and Comm. Engg</option>
+				<option value="eee">Electronics and Electrical Engg</option>
+				<option value="meta">Metallurgy and Material Science</option>
+				<option value="phy">Physics</option>
+				<option value="che">Chemistry</option>
+				<option value="math">Mathematics</option>
+			</select>
+		</label>
+		<br>
+
+		<label>Upload Profile photo: <input type="file" name="profile_photo" style="font-size: 15px;"></label>
+		 <div class="g-recaptcha" data-sitekey="6Leb1CcUAAAAADVv3aVvFQKsQX3y2auglfOpVY8d"></div>
+
+		<input type="submit" style="color: violet; font-size: 15px ;" value="Submit">
+	</form>
+	<p class="notInTheForm" style="color: white ; font-size: 25px">Existing users might want to <a style="color: yellow; font-size: 25px;" href="/login" class="btn">LOGIN</a></p>
+	<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+	<script type="text/javascript">
+		function validateForm(){
+			if( (document.forms[0]['username'].value != "") && (document.forms[0]['password'].value) && (document.forms[0]['captchaResponse'].value) )
+				return true ;
+			else{
+				return false ;
+			}
+		}
+		function notify(text){
+			var p = document.createElement('p') ;
+			p.innerHTML = text ;
+			p.setAttribute('class', 'notification') ;
+			console.log(p)
+			document.querySelector('.notificationBox').appendChild(p) ;
+		}
+
+		setTimeout(function(){
+			$('.notificationBox').remove()
+		}, 5000)
+
+		document.forms[0]['username'].onchange = function(){
+			$.post('/signup/check_availability',{username: $('.username').val()}, function(response){
+				if(response.canUse){
+					document.querySelector('.uNameVerified').src = 'images/glyphicons/png/glyphicons-153-check.png'
+					document.forms[0]['username'].style.border = '2px solid green'
+				}else{
+					document.querySelector('.uNameVerified').src = 'images/glyphicons/png/glyphicons-208-remove.png'
+					document.forms[0]['username'].style.border = '2px solid red'
+				}
+				if(!$('.username').val()){
+					document.querySelector('.uNameVerified').src = 'images/glyphicons/png/glyphicons-208-remove.png'
+					document.forms[0]['username'].style.border = '2px solid red'
+				}
+			})
+		}
+	</script>
+</body>
+</html>

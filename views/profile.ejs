@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+  	<link href="https://fonts.googleapis.com/css?family=Rationale" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		*{
+			color: white ;
+			font-family: 'Rationale', 'Tahoma'  ;
+		}
+		body{
+			font-family: 'Shadows Into Light', Monospace;
+			margin:30px auto;
+			text-align: center ;
+			background-image: url('/images/bg1.jpg');
+			background-size: 100% 800px ;
+			background-attachment: fixed;
+		}
+		 h1{
+			font-size: 26px ;
+		}
+		p{
+			font-size: 20px;
+		}
+		.main_image{
+			margin-top:30px ;
+			border-radius: 8px ;
+			width: 200px ;
+			height: 200px ;
+		}
+		.imageContainer{
+			border-radius: 4px ;
+		}
+		.name{
+			font-size: 35px ;
+		}
+		span{
+			display: inline;
+			font-size: 30px ;
+			color: cyan ;
+		}
+		.rollno{
+			font-size: 45px ;
+		}
+		.profile_details{
+			font-size: 25px ;
+		}
+		.list-group-item{
+			color: black ;
+			margin-top: 10px ;
+		}
+		.list-group-item:hover{
+			cursor: pointer;
+		}
+		.list-group{
+
+		}
+		.messageBox{
+			padding: 20px ;
+			border: 1px solid grey ;
+			margin-left: 37.5%;
+			width: 25% ;
+		}
+		.dummy_width{
+			width: 100% ;
+			height: 100px ;
+		}
+	</style>
+</head>
+<body>
+	<div class="imageContainer">
+		<%if(user.image){%>
+		<img class="main_image" src="/serve_image/<%=user.image%>">
+		<%}else{%>
+		<img class="main_image" src="/serve_image/defaultImage.jpg" width="200px"  height="200px">
+		<%}%>
+	</div>
+	<div class="profile_details">
+		<p class="name"><%=user.name%></p>
+		<span class="course"><%=user.course%></span> in <span class="branch"><%= user.branch%></span> department
+		<p class="rollno"><%=user.rollno%></p>
+		<% if(user.username === logged_user.username){%>
+			<div class="messageBox">
+				<p>MessageBox</p>
+				<ul class="list-group">
+				<%for(var i=0;i< user.conversations.length;i++){%>
+					<a href="/chat/<%= user.conversations[i].username %>"><li class="list-group-item"> <%= user.conversations[i].username %> </li></a>
+				<%}%>
+				</ul>
+			</div>
+		<%}else{%>
+			<a href="/chat/<%= user.username %>"><div class="btn btn-success" style="font-size: 20px ;">Message</div></a>
+		<%}%>
+	</div>
+	<%include footer.ejs%>
+</body>
+</html>
+
+<!--
+//dummy text
+
+.home{
+	position: fixed ;
+	background-color: rgba(128,128,128,0.6);
+	left:100px;
+	bottom: 50px ;
+	padding: 15px ;
+	border-radius: 50%;
+}
+.logout{
+	position: fixed ;
+	background-color: rgba(128,128,128,0.6);
+	right: 100px ;
+	bottom: 50px ;
+	padding: 15px ;
+	border-radius: 50%;
+}
+.home:hover,.logout:hover{
+	cursor: pointer;
+}
+.home img{
+	width: 40px ;
+	height: 40px ;
+}
+.logout img{
+	width: 40px ;
+	height: 40px ;
+}
+.home,.logout{
+	test-align:left;
+}
+-->

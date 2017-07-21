@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+  	<link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Fondamento" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		body{
+			font-family: 'Shadows Into Light', Monospace;
+			margin:30px auto;
+			text-align: center ;
+			background-image: url('/images/bg2.jpg');
+			background-size: 100% 800px ;
+			background-attachment: fixed;
+		}
+
+		form{
+			margin-top: 30px ;
+			padding: 30px ;
+		}
+		input, select{
+			margin:20px;
+		}
+		.notification{
+			border-radius: 10px ;
+			padding:20px ;
+			background-color: yellow ;
+			color: red ;
+			font-size: 20px ;
+		}p{
+			color: red ;
+		}
+		.btn{
+			text-decoration: none ;
+		}
+		a:hover{
+			color: red ;
+		}
+	</style>
+</head>
+<body>
+	<div class="notificationBox"></div>
+	<h1 style="color: cyan;">Login to ProPart</h1>
+	<p style="color: cyan; font-size: 22px;">*Every field is compulsory</p>
+	<label style="color: cyan;">Username:<input required="true" type="text" name="username" class="username" style="color: violet;"></label>
+	<br>
+	<label style="color: cyan;">Password:<input type="password" name="password" required="true" class="password" style="color: violet;"></label>
+	<br>
+	<input type="submit" value="Submit" id="submit">
+
+	<p style="color: white ; font-size: 25px ;">New users might want to <a style="color: yellow; font-size: 25px;" href="/signup" class="btn">SIGNUP</a></p>
+
+
+	<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/jscookie.js"></script>
+	<script type="text/javascript">
+		$('#submit').click(function(){
+			if(($('.username').val()!="") && ($('.password').val()!="")){
+				$.post('/login', { username: $('.username').val(), password : $('.password').val()},
+			    function(returnedData){
+			         if(returnedData.token || returnedData.token!=undefined){
+			         	Cookies.set('token',returnedData.token) ;
+								Cookies.set('username',$('.username').val())
+			         	location.href = '/dashboard' ;
+			         }else{
+			         	notify(returnedData.message)
+			         	setTimeout(function(){
+			         		$('.notification').remove()
+			         	}, 4000)
+			         	if(returnedData.message === 'Authentication failed. User not found.'){
+			         		setTimeout(function(){
+				         		location.href = '/signup'
+				         	}, 1000)
+			         	}
+			         }
+				});
+			}
+		})
+
+		function notify(text){
+			var p = document.createElement('p') ;
+			p.innerHTML = text ;
+			p.setAttribute('class', 'notification') ;
+			console.log(p)
+			document.querySelector('.notificationBox').appendChild(p) ;
+		}
+	</script>
+</body>
+</html>

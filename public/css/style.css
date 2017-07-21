@@ -1,0 +1,303 @@
+body{
+    font-family: 'Shadows Into Light', Monospace;
+    margin:30px auto;
+    text-align: center ;
+    background-image: url('/images/bg1.jpg');
+    background-size: 100% 100% ;
+    background-attachment: fixed;
+  }
+ .tab{
+  font-size: 20px ;
+  color: white ;
+  width: 10% ;
+  background-color: grey ;
+  padding: 20px ;
+  float: left;
+  margin-left: 10% ;
+  border-radius: 10% ;
+}
+.tab:hover{
+  cursor: pointer;
+  color: cyan ;
+  transition-duration: 0.5s ;
+}
+.create{
+  margin-left: 25% ;
+}
+
+.dummy{
+	clear: both;
+}
+.browse-board{
+	display: none ;
+}
+.board{
+	color: white ;
+}
+input, option, select, textarea, button{
+	color: black ;
+	font-size: 22px;
+}
+textarea{
+	border-radius: 5px;
+	resize: none ;
+	width: 250px;
+	height: 150px ;
+}
+.messageInternal, .message{
+	color: white ;
+	font-size: 25px ;
+}
+.board h2{
+  width:25%;
+  border:1px solid grey;
+  padding: 10px ;
+  margin-left:37.5%;
+}
+.invites_container{
+  color: white ;
+}
+.invite{
+  padding:20px;
+  border:1px solid grey ;
+  width: 60% ;
+  margin-left: 20% ;
+  margin-top: 20px ;
+}
+.details_container p{
+  font-size: 25px ;
+}
+.required{
+  color: cyan ;
+}
+.invite_header{
+  font-size: 32px;
+  padding: 10px ;
+  border:1px solid grey;
+}
+.invite img{
+  width: 60px ;
+  height: 60px ;
+  border-radius: 50% ;
+}
+.profiles-board{
+  display: none ;
+}
+
+/* Profile Styles */
+
+.imageContainer img{
+  margin-top:30px ;
+  border-radius: 8px ;
+  width: 200px ;
+  height: 200px ;
+}
+.imageContainer{
+  border-radius: 4px ;
+}
+.profile_details .name{
+  font-size: 35px ;
+}
+span{
+  display: inline;
+  font-size: 30px ;
+  color: cyan ;
+}
+.rollno{
+  font-size: 45px ;
+}
+.profile_details{
+  font-size: 25px ;
+}
+.invites_applied{
+  border: 1px solid grey;
+  padding: 20px ;
+  width: 50%;
+  margin-left: 25% ;
+}
+
+
+.inviteApplied{
+  border:1px solid grey;
+  padding: 10px ;
+  margin-top: 20px;
+}
+.inviteApplied h2{
+  border: none;
+  margin-left: none !important;
+}
+
+.status_of_user{
+  color: red ;
+  background-color: yellow ;
+  padding: 10px ;
+  border-radius: 3px ;
+  width:30%;
+  margin-left: 35% ;
+}
+.inviteApplied p a{
+  display: inline-block;
+  color: white ;
+  text-decoration: none ;
+  font-size: 22px;
+  padding: 20px ;
+  border-radius: 5px;
+}
+.inviteApplied p a:hover{
+  cursor: pointer;
+  background-color: rgba(200,200,200,0.6);
+}
+.inviteApplied p img{
+  width: 50px ;
+  height: 50px ;
+  border-radius: 50% ;
+  margin-left: 5px;
+}
+.inviteApplied p{
+  margin-top: 20px ;
+  margin-bottom: 20px ;
+  font-size: 27px ;
+}
+.message{
+  color: rgb(150,200,150);
+}
+
+.invites_created{
+  border: 1px solid grey;
+  padding: 20px ;
+  width: 50%;
+  margin-left: 25% ;
+  margin-bottom: 20px ;
+}
+.applicant{
+  text-align: left;
+}
+.name_of_applicant{
+  margin-left: 10%;
+  padding: 12px ;
+  font-size: 24px ;
+  text-decoration: none ;
+  color: cyan ;
+}
+.name_of_applicant:hover{
+  text-decoration: none;
+  color: cyan ;
+  border-radius: 5px ;
+  background-color: rgba(120,120,120,0.9);
+  cursor: pointer;
+}
+.add_applicant{
+  display: inline-block;
+  float: right;
+  background-color: rgba(40,239,70,0.7);
+  width: 50px ;
+  height: 50px ;
+  border-top-left-radius: 10px ;
+  border-bottom-left-radius: 10px ;
+}
+.remove_applicant{
+  float: right;
+  display: inline-block;
+  background-color: rgba(200,30,7,0.8);
+  width: 50px ;
+  height: 50px ;
+  border-top-right-radius: 10px ;
+  border-bottom-right-radius: 10px ;
+  margin-right: 50px;
+}
+.add_applicant img, .remove_applicant img{
+  margin-left: 25%;
+}
+.remove_applicant:hover{
+  cursor: pointer;
+}
+.add_applicant:hover{
+  cursor: pointer;
+}
+.dummy1{
+  width: 500px ;
+  height: 20px ;
+}
+.applicant p{
+  text-align: center;
+}
+.inviteCreated{
+  font-size: 20px;
+}
+.inviteCreated h3{
+  color: cyan;
+}
+.approved_user_link{
+  display: block;
+  padding: 10px ;
+  color: white ;
+  background-color: rgba(128,128,128,0.6); ;
+  border-radius: 10px ;
+  text-decoration: none;
+  margin-top: 10px ;
+  width: 28%;
+  margin-left: 36% ;
+}
+.approved_user_link:hover{
+  cursor: pointer;
+  color: cyan ;
+  text-decoration: none ;
+}
+.search_board{
+  padding: 20px ;
+  border:1px solid grey ;
+  width: 20% ;
+  position: fixed;
+  top:30px ;
+  right: 20px ;
+}
+.search_users{
+  padding: 5px;
+  padding-left: 10px ;
+  padding-right: 10px ;
+  border-radius:3px ;
+}
+.search_users:hover{
+  cursor: pointer;
+}
+.search_users img{
+  width: 20px ;
+  height: 20px ;
+}
+#username_for_search{
+  width: 80%;
+  float: left;
+}
+.username_suggestion{
+  padding: 15px ;
+  background-color: rgba(128,128,128,0.6) ;
+  text-decoration: none ;
+  color: white ;
+  font-size: 22px ;
+  display: block;
+}
+.username_suggestion:hover{
+  color: violet ;
+  text-decoration: none ;
+}
+
+.username_suggestion:visited{
+  color:white ;
+}
+.to_remove{
+  width:40px ;
+  height: 40px ;
+  float:right ;
+  background-color: rgba(200,200,200,0.8);
+  margin-top: -100px;
+  border-radius: 50% ;
+}
+.to_remove:hover{
+  cursor: pointer;
+  background-color: rgba(150,0,0,0.2);
+}
+.image_for_removing{
+  margin-top:5px ;
+  width: 30px !important;
+  height: 30px !important;
+}

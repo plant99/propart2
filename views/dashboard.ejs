@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Fondamento" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+	<style type="text/css"></style>
+
+</head>
+<body>
+  <%if(message){%>
+  <p class="message"><%=message%></p>
+  <script type="text/javascript">
+    var message = document.querySelector('.message') ;
+    setTimeout(function(){
+      message.remove()
+    },3000)
+  </script>
+  <%}%>
+  <p class="messageInternal"></p>
+  <!-- Tab headers -->
+	<div class="tabs">
+		<div class="tab create">CREATE</div>
+		<div class="tab browse">BROWSE</div>
+    <div class="tab profiles">PROFILES</div>
+	</div>
+  <!-- To clear float if any -->
+	<div class="dummy"></div>
+
+  <!-- tabs/boards -->
+	<div class="boards">
+		<div class="board create-board" >
+        <h2 class="header">Add Invitation</h2>
+
+        <p style="font-size: 18px;">Type of the activity?</p>
+        <select name="category" class="category">
+          <option value="tech_proj">Technical Project</option>
+          <option value="social">Social Activity</option>
+          <option value="environmental">Environmental Activity</option>
+          <option value="entertainment">Entertainment</option>
+        </select>
+
+        <br><br><br>
+        <input type="text" name="title" class="title" placeholder="Title">
+        <br><br>
+        <textarea name="description" class="description" placeholder="Describe the task and requirements"></textarea>
+        <br><br>
+        <input type="number" style="width: 25%;" name="requirements" class="requirements" placeholder="No of partners required?">
+        <br><br>
+        <input type="submit" class="submit" value="Create">
+		</div>
+
+    <div class="board browse-board">
+      <h2 class="header">Browse Invites</h2>
+      <p style="font-size: 18px;">Filter by categories:</p>
+      <select name="categoryFilter" class="categoryFilter">
+          <option value="tech_proj">Technical Project</option>
+          <option value="social">Social Activity</option>
+          <option value="environmental">Environmental Activity</option>
+          <option value="entertainment">Entertainment</option>
+      </select>
+
+      <div class="invites_container">
+
+      </div>
+    </div>
+
+    <div class="board profiles-board" profile_id="<%= user._id%>">
+
+      <div class="imageContainer">
+        <%if(user.image){%>
+        <img src="/serve_image/<%=user.image%>">
+        <%}else{%>
+        <img src="/serve_image/defaultImage.jpg" width="200px"  height="200px">
+        <%}%>
+      </div>
+      <div class="profile_details">
+        <p class="name"><%=user.name%></p>
+        <span class="course"><%=user.course%></span> in <span class="branch"><%= user.branch%></span> department
+        <p class="rollno"><%=user.rollno%></p>
+      </div>
+
+
+      <div class="invites_created">
+        <h1>INVITES CREATED</h1>
+
+      </div>
+
+      <div class="invites_applied">
+        <h1>INVITES APPLIED</h1>
+
+      </div>
+
+			<div class="search_board">
+				<span><input type="text" id="username_for_search" class="form-control" placeholder="Search for Users" />
+				<span class="search_users"><img src="/images/search.png" /></span></span>
+				<div id="usernames_container">
+
+				</div>
+			</div>
+    </div>
+
+	</div>
+
+  <% include footer.ejs %>
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jscookie.js"></script>
+  <script type="text/javascript" src="/javascripts/script.js"></script>
+
+</body>
+</html>
