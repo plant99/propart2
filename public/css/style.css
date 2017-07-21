@@ -304,7 +304,6 @@ span{
 .alert{
   padding: 15px ;
   font-size: 22px ;
-  background-color: rgba(255, 0, 0, 0.7);
 }
 .remove{
   width:25% ;
@@ -318,5 +317,5 @@ span{
   display: inline-block;
 }
 .remove:hover{
-  cursor: pointer ; 
+  cursor: pointer ;
 }

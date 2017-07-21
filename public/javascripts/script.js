@@ -145,7 +145,7 @@ function loadInvites(invites, user){
 						id:parent.getAttribute('data')
 					}, function(response){
 						if(response.success){
-							parent.innerHTML = '<p class="alert">The invite was removed from your feed!</p>'
+							parent.innerHTML = '<p class="alert alert-danger">The invite was removed from your feed!</p>'
 							setTimeout(function(){
 								parent.parentNode.removeChild(parent)
 							},5000) ;
@@ -236,55 +236,88 @@ function findIndexOf(object, array){
 function loadAppliedInvites(invites, user){
 	if(invites.length){
 		for(var i=0;i< invites.length;i++){
-			var inviteApplied = document.createElement('div') ;
-			inviteApplied.setAttribute('id_invite',invites[i]._id) ;
-			inviteApplied.setAttribute('class','inviteApplied') ;
-			var titleName = document.createElement('p') ;
-			titleName.innerHTML = "' "+invites[i].title +" '"+ ' by <br>'
-			var link_to_profile = document.createElement('a') ;
-			link_to_profile.setAttribute('class','link_to_profile')
-			var href = '/'+invites[i].author.name ;
-			link_to_profile.setAttribute('href', href)
-			link_to_profile.setAttribute('target', '_blank') ;
-			link_to_profile.innerHTML = invites[i].author.name+' ' ;
-			var profile_photo = document.createElement('img') ;
-			profile_photo.src = '/serve_image/'+invites[i].author.image ;
-			link_to_profile.appendChild(profile_photo)
-			titleName.appendChild(link_to_profile) ;
-			inviteApplied.appendChild(titleName) ;
-			var status = document.createElement('p') ;
-			status.setAttribute('class','status_of_user') ;
-			status.innerHTML = 'STATUS' ;
-			var message = document.createElement('p') ;
-			//to check the status and message in the invites[i].applicants, check username then status ok?
-			//IMPORTANT
-			var applicants = invites[i].applicants ;
-			for(var j=0 ;j< applicants.length; j++){
-				if(applicants[j].id == user._id){
-					var color = applicants[j].status.color ;
-					if(color === 'red'){
-						status.style.backgroundColor = '#d8401a'
-						status.style.color = '#f4fcf2' ;
-						status.innerHTML = 'REJECTED' ;
-					}else if(color === 'green'){
-						status.style.backgroundColor = '#1ad849' ;
-						status.style.color = '#f4fcf2' ;
-						status.innerHTML = 'SELECTED' ;
+			if(invite_not_hidden(invites[i], user)){
+				var inviteApplied = document.createElement('div') ;
+				inviteApplied.setAttribute('id_invite',invites[i]._id) ;
+				inviteApplied.setAttribute('class','inviteApplied') ;
+				var titleName = document.createElement('p') ;
+				titleName.innerHTML = "' "+invites[i].title +" '"+ ' by <br>'
+				var link_to_profile = document.createElement('a') ;
+				link_to_profile.setAttribute('class','link_to_profile')
+				var href = '/'+invites[i].author.name ;
+				link_to_profile.setAttribute('href', href)
+				link_to_profile.setAttribute('target', '_blank') ;
+				link_to_profile.innerHTML = invites[i].author.name+' ' ;
+				var profile_photo = document.createElement('img') ;
+				profile_photo.src = '/serve_image/'+invites[i].author.image ;
+				link_to_profile.appendChild(profile_photo)
+				titleName.appendChild(link_to_profile) ;
+				inviteApplied.appendChild(titleName) ;
+				var to_remove = document.createElement('div') ;
+				var image_for_removing = document.createElement('img') ;
+				image_for_removing.src = '/images/delete-icon.png' ;
+				image_for_removing.setAttribute('class','image_for_removing') ;
+				to_remove.setAttribute('class','to_remove') ;
+				to_remove.setAttribute('title','REMOVE INVITE FROM FEED')
+				to_remove.appendChild(image_for_removing) ;
+				to_remove.onclick = function(e){
+					var parent = null ;
+					if(e.target.getAttribute('class') == 'to_remove'){
+						parent = e.target.parentNode ;
 					}else{
-						status.style.backgroundColor = '#e7f47f' ;
-						status.style.color = '#ea4f5a' ;
-						status.innerHTML = 'WAIT' ;
+						parent = e.target.parentNode.parentNode ;
 					}
-					//status.style.backgroundColor = applicants[j].status.color ;
-					message.innerHTML = applicants[j].status.message ;
-					inviteApplied.appendChild(status) ;
-					inviteApplied.appendChild(message) ;
-					break ;
-				}else{
-					console.log(applicants[j])
+					$.post('/remove_data/applied_invite_visibility', {
+						user:user.username,
+						id:parent.getAttribute('id_invite')
+					}, function(response){
+						if(response.success){
+							parent.innerHTML = '<p class="alert alert-danger">The invite was removed from your dashboard!</p>'
+							setTimeout(function(){
+								parent.parentNode.removeChild(parent)
+							},5000) ;
+						}else{
+
+						}
+					})
 				}
+				inviteApplied.appendChild(to_remove) ;
+				var status = document.createElement('p') ;
+				status.setAttribute('class','status_of_user') ;
+				status.innerHTML = 'STATUS' ;
+				var message = document.createElement('p') ;
+				//to check the status and message in the invites[i].applicants, check username then status ok?
+				//IMPORTANT
+				var applicants = invites[i].applicants ;
+				for(var j=0 ;j< applicants.length; j++){
+					if(applicants[j].id == user._id){
+						var color = applicants[j].status.color ;
+						if(color === 'red'){
+							status.style.backgroundColor = '#d8401a'
+							status.style.color = '#f4fcf2' ;
+							status.innerHTML = 'REJECTED' ;
+						}else if(color === 'green'){
+							status.style.backgroundColor = '#1ad849' ;
+							status.style.color = '#f4fcf2' ;
+							status.innerHTML = 'SELECTED' ;
+						}else{
+							status.style.backgroundColor = '#e7f47f' ;
+							status.style.color = '#ea4f5a' ;
+							status.innerHTML = 'WAIT' ;
+						}
+						//status.style.backgroundColor = applicants[j].status.color ;
+						message.innerHTML = applicants[j].status.message ;
+						inviteApplied.appendChild(status) ;
+						inviteApplied.appendChild(message) ;
+						break ;
+					}else{
+						console.log(applicants[j])
+					}
+				}
+				invites_applied.appendChild(inviteApplied) ;
+			}else{
+				console.log(invite_not_hidden(invites[i],user))
 			}
-			invites_applied.appendChild(inviteApplied) ;
 		}
 	}else{
 		var p = document.createElement('p');
@@ -398,7 +431,13 @@ function loadCreatedInvites(invites, user){
 							var confirm_delete = window.confirm('Are you sure you want to delete the invite "'+e.target.previousSibling.innerHTML+'" ?') ;
 							if(confirm_delete){
 								$.post('/remove_data/invite',{id: e.target.parentNode.getAttribute('invite_id')}, function(response){
-									console.log(response) ;
+									if(response.success){
+										var inviteCreated = e.target.parentNode ;
+										inviteCreated.innerHTML = '<p class="alert alert-success">The invite was removed successfully!</p>' ;
+										setTimeout(function(){
+											inviteCreated.parentNode.removeChild(inviteCreated) ;
+										}, 5000)
+									}
 								})
 							}else{
 								// if not
@@ -562,4 +601,11 @@ function checkIfHidden(invite, user){
 		 console.log(false) ;
 		 return false ;
 	 }
+}
+function invite_not_hidden(invite, user){
+	if(user.hidden_invites.indexOf(invite._id) == -1){
+		return true ;
+	}else{
+		return false ;
+	}
 }

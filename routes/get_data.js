@@ -31,7 +31,9 @@ router.get('/user_applied_invites/:id', function(req, res, next){
 				applied_invites_to_be_sent.push(invite)
 				index++;
 				if(index === applied_invites.length){
-					res.json({success: true, user: req.decoded._doc , applied_invites: applied_invites_to_be_sent})
+					User.findOne({username: req.decoded._doc.username},function(err, user_to_be_sent){
+						res.json({success: true, user: user_to_be_sent , applied_invites: applied_invites_to_be_sent})
+					})
 				}
 			})
 		}

@@ -24,6 +24,27 @@ router.post('/invite_visibility', function(req, res, next){
     }
   })
 })
+router.post('/applied_invite_visibility', function(req, res){
+  var user = req.body.user ;
+  var invite_id = req.body.id ;
+  User.findOne({username: user}, function(err, user_found){
+    if(err){
+      res.json({success: false}) ;
+    }else{
+      if(user_found){
+        user_found.hidden_invites.push(invite_id) ;
+        user_found.save(function(err, user_saved){
+          console.log(user_saved) ;
+          if(err){
+            res.json({success: false}) ;
+          }else{
+            res.json({success: true}) ;
+          }
+        })
+      }
+    }
+  })
+})
 router.post('/invite', function(req, res){
   var id = req.body.id ;
   console.log('Post recieved')
