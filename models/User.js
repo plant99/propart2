@@ -21,5 +21,6 @@ module.exports = mongoose.model('user', new Schema({
 		username: String,
 		unread: Boolean
 	}],
-	hidden_invites:[String]
+	hidden_invites:[String],
+	recent_conversations:[String] 
 }))

@@ -319,3 +319,38 @@ span{
 .remove:hover{
   cursor: pointer ;
 }
+.conversations{
+  position: absolute;
+  left: 20px ;
+  top:20px ;
+  border:1px solid grey ;
+  color: white ;
+}
+.conversations h2{
+  padding: 10px ;
+  font-size: 26px ;
+}
+.conversations ul{
+  list-style-type: none ;
+  padding: 5px ;
+}
+.conversations ul li{
+  margin-top: 5px ;
+  padding: 5px ;
+  margin-left: 10px ;
+  margin-right: 10px ;
+  font-size: 17px ;
+}
+.well{
+  background-color: rgba(188, 171, 162,0.7) ;
+}
+.conversations ul li a {
+  text-decoration: none;
+  font-size: 27px ;
+  color:white ;
+}
+.conversations ul li a:hover{
+  text-decoration: none;
+  color: cyan ;
+  transition-duration: 0.5s ;
+}
