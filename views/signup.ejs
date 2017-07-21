@@ -54,6 +54,12 @@
 		select, option{
 			color: purple;
 		}
+		.view_password_text{
+			display: none ;
+		}
+		.view_password:hover {
+			cursor: pointer;
+		}
 	</style>
 
      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -72,7 +78,9 @@
 
 		<br>
 
-		<label>Password:<input placeholder="password" required="true" type="password" style="color: violet; font-size: 15px ;"  name="password"></label>
+		<label>Password:<input placeholder="password" id="password" required="true" type="password" style="color: violet; font-size: 15px ;"  name="password"><span><img  class="view_password" src="/images/glyphicons/png/glyphicons-52-eye-open.png" /></span><p class="view_password_text">
+
+		</p></label>
 		<br>
 
 		<label>Roll NO: <input type="text" name="rollno" style="color: violet ;" required></label>
@@ -148,6 +156,21 @@
 				}
 			})
 		}
+		$('.view_password').click(function(e){
+			console.log(e.target.src)
+			if(e.target.src === '/images/glyphicons/png/glyphicons-53-eye-close.png' || e.target.src === 'http://localhost:3000/images/glyphicons/png/glyphicons-53-eye-close.png'){
+				console.log(e.target.src)
+				$('.view_password_text').css('display','none') ;
+				e.target.src = '/images/glyphicons/png/glyphicons-52-eye-open.png' ;
+			}else{
+				$('.view_password_text').css('display','block') ;
+				e.target.src = '/images/glyphicons/png/glyphicons-53-eye-close.png' ;
+			}
+		})
+		$('#password').keyup(function(){
+				document.querySelector(".view_password_text").innerHTML = document.forms[0]['password'].value ;
+				console.log(document.forms[0]['password'].value) ;
+		})
 	</script>
 </body>
 </html>
